@@ -21,7 +21,18 @@
 
 ## GitHub Репозиторий
 
-**Ссылка на репозиторий**: https://github.com/noPlanBonlyA/lab1_TestPO/blob/main/REPORT.md
+**Ссылка на репозиторий**: https://github.com/noPlanBonlyA/lab1_TestPO
+
+**Статус проекта**: Оригинальная разработка (создан специально для лабораторной работы)  
+**Доступ**: Публичный репозиторий, доступен для просмотра и изучения  
+**Структура проекта**:
+- `calculator.py` - основной класс калькулятора
+- `history.py` - класс управления историей операций  
+- `main.py` - интегрированный класс с демонстрацией
+- `test_*.py` - файлы с unit-тестами
+- `requirements.txt` - зависимости проекта
+- `README.md` - документация проекта
+- `REPORT.md` - данный отчет
 
 
 ## Анализ функциональности и выбор тестируемых компонентов
@@ -116,6 +127,105 @@ def test_complex_calculation_scenario(self):
     assert len(history) == 4
     operations = [op['operation'] for op in history]
     assert operations == ['subtract', 'divide', 'multiply', 'add']
+```
+
+### Полный список всех написанных тестов:
+
+#### 🧮 **Тесты Calculator (21 тест)**:
+1. `test_basic_addition` - базовое сложение чисел
+2. `test_basic_subtraction` - базовое вычитание чисел
+3. `test_basic_multiplication` - базовое умножение чисел
+4. `test_basic_division` - базовое деление чисел
+5. `test_basic_power` - базовое возведение в степень
+6. `test_addition_with_zero` - сложение с нулем (граничный случай)
+7. `test_multiplication_by_zero` - умножение на ноль
+8. `test_power_to_zero` - возведение в нулевую степень
+9. `test_zero_to_power` - возведение нуля в степень
+10. `test_division_by_zero` - деление на ноль (обработка исключения)
+11. `test_negative_square_root` - корень из отрицательного числа
+12. `test_negative_base_non_integer_exponent` - отрицательное число в дробной степени
+13. `test_operations_with_negative_numbers` - операции с отрицательными числами
+14. `test_floating_point_operations` - операции с числами с плавающей запятой
+15. `test_square_root_positive` - извлечение квадратного корня
+16. `test_large_number_operations` - операции с большими числами
+17. `test_power_overflow` - переполнение при возведении в степень
+18. `test_last_result_tracking` - отслеживание последнего результата
+19. `test_clear_functionality` - функция очистки состояния
+20. `test_complex_power_operations` - сложные операции возведения в степень
+21. `test_mixed_integer_float_operations` - смешанные операции с int и float
+
+#### 📋 **Тесты History (15 тестов)**:
+1. `test_add_single_operation` - добавление одной операции в историю
+2. `test_add_multiple_operations` - добавление нескольких операций
+3. `test_max_size_limit` - ограничение максимального размера истории
+4. `test_default_max_size` - проверка размера истории по умолчанию
+5. `test_get_last_operations` - получение последних операций
+6. `test_get_last_operations_boundary_cases` - граничные случаи получения операций
+7. `test_search_operations_by_type` - поиск операций по типу
+8. `test_clear_history` - очистка истории
+9. `test_statistics_empty_history` - статистика для пустой истории
+10. `test_statistics_with_operations` - статистика с операциями
+11. `test_operands_list_isolation` - изоляция списка операндов
+12. `test_multiple_history_instances` - независимость экземпляров истории
+13. `test_timestamp_ordering` - корректность временных меток
+14. `test_custom_max_size_edge_cases` - граничные случаи с настраиваемым размером
+15. `test_mixed_operations_scenario` - смешанные сценарии операций
+
+#### 🔗 **Интеграционные тесты (6 тестов)**:
+1. `test_operation_with_history_recording` - запись операции в историю
+2. `test_multiple_operations_history` - запись нескольких операций
+3. `test_error_not_recorded_in_history` - ошибки не записываются в историю
+4. `test_statistics_integration` - интеграция статистики
+5. `test_clear_history_integration` - очистка истории в интегрированной среде
+6. `test_complex_calculation_scenario` - сложный сценарий вычислений
+
+### Дополнительные примеры ключевых тестов:
+
+#### Тест 4: Операции с отрицательными числами
+```python
+def test_operations_with_negative_numbers(self):
+    """Test operations with negative numbers."""
+    assert self.calculator.add(-5, -3) == -8
+    assert self.calculator.add(-5, 3) == -2
+    assert self.calculator.multiply(-5, -3) == 15
+    assert self.calculator.divide(-15, -3) == 5
+```
+
+#### Тест 5: Статистика истории операций
+```python
+def test_statistics_with_operations(self):
+    """Test statistics with multiple operations."""
+    operations_data = [
+        ("add", [1, 2], 3),
+        ("multiply", [2, 3], 6),
+        ("divide", [20, 4], 5)
+    ]
+    
+    for op, operands, result in operations_data:
+        self.history.add_operation(op, operands, result)
+    
+    stats = self.history.get_statistics()
+    assert stats['total_operations'] == 3
+    assert stats['average_result'] == (3 + 6 + 5) / 3
+    assert stats['max_result'] == 6
+```
+
+#### Тест 6: Ограничение размера истории
+```python
+def test_max_size_limit(self):
+    """Test that history respects maximum size limit."""
+    small_history = History(max_size=3)
+    
+    # Добавляем больше операций, чем максимальный размер
+    for i in range(5):
+        small_history.add_operation("add", [i, 1], i + 1)
+    
+    assert small_history.get_operation_count() == 3
+    operations = small_history.get_all_operations()
+    # Должны остаться только последние 3 операции
+    assert operations[0]['result'] == 5  # 4 + 1
+    assert operations[1]['result'] == 4  # 3 + 1
+    assert operations[2]['result'] == 3  # 2 + 1
 ```
 
 ### Покрытие тестами по категориям:
