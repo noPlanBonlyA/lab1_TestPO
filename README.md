@@ -31,8 +31,7 @@
 - `main.py` - интегрированный класс с демонстрацией
 - `test_*.py` - файлы с unit-тестами
 - `requirements.txt` - зависимости проекта
-- `README.md` - документация проекта
-- `REPORT.md` - данный отчет
+- `README.md` - отчет
 
 
 ## Анализ функциональности и выбор тестируемых компонентов
@@ -98,7 +97,6 @@
 #### Тест 1: Базовое сложение (Happy Path)
 ```python
 def test_basic_addition(self):
-    """Test addition with positive numbers."""
     result = self.calculator.add(5, 3)
     assert result == 8
     assert self.calculator.get_last_result() == 8
@@ -107,7 +105,6 @@ def test_basic_addition(self):
 #### Тест 2: Граничный случай - деление на ноль
 ```python
 def test_division_by_zero(self):
-    """Test division by zero raises ZeroDivisionError."""
     with pytest.raises(ZeroDivisionError, match="Cannot divide by zero"):
         self.calculator.divide(10, 0)
 ```
@@ -115,7 +112,6 @@ def test_division_by_zero(self):
 #### Тест 3: Сложный интеграционный сценарий
 ```python
 def test_complex_calculation_scenario(self):
-    """Test a complex calculation scenario with full integration."""
     # ((10 + 5) * 3) / 2 - 8 = 14.5
     step1 = self.calc_with_history.add(10, 5)        # 15
     step2 = self.calc_with_history.multiply(step1, 3) # 45
@@ -184,7 +180,6 @@ def test_complex_calculation_scenario(self):
 #### Тест 4: Операции с отрицательными числами
 ```python
 def test_operations_with_negative_numbers(self):
-    """Test operations with negative numbers."""
     assert self.calculator.add(-5, -3) == -8
     assert self.calculator.add(-5, 3) == -2
     assert self.calculator.multiply(-5, -3) == 15
@@ -194,7 +189,6 @@ def test_operations_with_negative_numbers(self):
 #### Тест 5: Статистика истории операций
 ```python
 def test_statistics_with_operations(self):
-    """Test statistics with multiple operations."""
     operations_data = [
         ("add", [1, 2], 3),
         ("multiply", [2, 3], 6),
@@ -213,7 +207,6 @@ def test_statistics_with_operations(self):
 #### Тест 6: Ограничение размера истории
 ```python
 def test_max_size_limit(self):
-    """Test that history respects maximum size limit."""
     small_history = History(max_size=3)
     
     # Добавляем больше операций, чем максимальный размер
@@ -283,10 +276,10 @@ TOTAL                   480     28    94%
 ```
 
 ### Анализ покрытия:
-- **calculator.py**: 98% покрытие (отличный результат)
-- **history.py**: 100% покрытие (идеальное покрытие)
-- **main.py**: 54% покрытие (демонстрационные функции не покрыты тестами)
-- **Общее покрытие**: 94% - превосходный результат
+- **calculator.py**: 98% покрытие
+- **history.py**: 100% покрытие
+- **main.py**: 54% покрытие
+- **Общее покрытие**: 94%
 
 ## 🔍 Соответствие принципам FIRST
 
@@ -326,10 +319,8 @@ def test_example_verbose(self):
     a, b = 10, 5
     expected = 15
     
-    # Act - выполнение тестируемого действия
     result = calculator.add(a, b)
     
-    # Assert - проверка результатов
     assert result == expected
 ```
 
