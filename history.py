@@ -1,6 +1,4 @@
-"""
-History class for storing and managing calculator operation history.
-"""
+"""History class for storing and managing calculator operation history."""
 
 from datetime import datetime
 from typing import List, Dict, Any
@@ -10,24 +8,11 @@ class History:
     """Manages history of calculator operations."""
     
     def __init__(self, max_size: int = 100):
-        """
-        Initialize history with maximum size.
-        
-        Args:
-            max_size: Maximum number of operations to store
-        """
         self.max_size = max_size
         self.operations: List[Dict[str, Any]] = []
     
     def add_operation(self, operation: str, operands: List[float], result: float) -> None:
-        """
-        Add an operation to history.
-        
-        Args:
-            operation: Name of the operation (e.g., 'add', 'multiply')
-            operands: List of numbers used in the operation
-            result: Result of the operation
-        """
+        """Add an operation to history."""
         entry = {
             'timestamp': datetime.now(),
             'operation': operation,
@@ -42,26 +27,13 @@ class History:
             self.operations.pop(0)
     
     def get_last_operations(self, count: int = 10) -> List[Dict[str, Any]]:
-        """
-        Get the last N operations.
-        
-        Args:
-            count: Number of operations to retrieve
-            
-        Returns:
-            List of operation dictionaries, most recent first
-        """
+        """Get the last N operations, most recent first."""
         if count <= 0:
             return []
-        return self.operations[-count:][::-1]  # Reverse to get most recent first
+        return self.operations[-count:][::-1]
     
     def get_all_operations(self) -> List[Dict[str, Any]]:
-        """
-        Get all operations in history.
-        
-        Returns:
-            List of all operation dictionaries, most recent first
-        """
+        """Get all operations in history, most recent first."""
         return self.operations[::-1]
     
     def clear_history(self) -> None:
@@ -69,34 +41,15 @@ class History:
         self.operations.clear()
     
     def get_operation_count(self) -> int:
-        """
-        Get the total number of operations in history.
-        
-        Returns:
-            Number of operations in history
-        """
         return len(self.operations)
     
     def search_operations(self, operation_type: str) -> List[Dict[str, Any]]:
-        """
-        Search for operations by type.
-        
-        Args:
-            operation_type: Type of operation to search for
-            
-        Returns:
-            List of matching operations, most recent first
-        """
+        """Search for operations by type."""
         matching_ops = [op for op in self.operations if op['operation'] == operation_type]
         return matching_ops[::-1]
     
     def get_statistics(self) -> Dict[str, Any]:
-        """
-        Get statistics about the operations history.
-        
-        Returns:
-            Dictionary with statistics about operations
-        """
+        """Get statistics about the operations history."""
         if not self.operations:
             return {
                 'total_operations': 0,

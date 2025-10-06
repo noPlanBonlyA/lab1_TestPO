@@ -1,8 +1,4 @@
-"""
-Calculator with History - A simple calculator that tracks operation history.
-
-This is a demonstration project for unit testing practices.
-"""
+"""Calculator with History - A simple calculator that tracks operation history."""
 
 from calculator import Calculator
 from history import History
@@ -12,56 +8,46 @@ class CalculatorWithHistory:
     """Calculator with operation history tracking."""
     
     def __init__(self):
-        """Initialize calculator with history."""
         self.calculator = Calculator()
         self.history = History()
     
     def add(self, a: float, b: float) -> float:
-        """Add two numbers and record in history."""
         result = self.calculator.add(a, b)
         self.history.add_operation('add', [a, b], result)
         return result
     
     def subtract(self, a: float, b: float) -> float:
-        """Subtract two numbers and record in history."""
         result = self.calculator.subtract(a, b)
         self.history.add_operation('subtract', [a, b], result)
         return result
     
     def multiply(self, a: float, b: float) -> float:
-        """Multiply two numbers and record in history."""
         result = self.calculator.multiply(a, b)
         self.history.add_operation('multiply', [a, b], result)
         return result
     
     def divide(self, a: float, b: float) -> float:
-        """Divide two numbers and record in history."""
         result = self.calculator.divide(a, b)
         self.history.add_operation('divide', [a, b], result)
         return result
     
     def power(self, base: float, exponent: float) -> float:
-        """Raise base to power and record in history."""
         result = self.calculator.power(base, exponent)
         self.history.add_operation('power', [base, exponent], result)
         return result
     
     def square_root(self, number: float) -> float:
-        """Calculate square root and record in history."""
         result = self.calculator.square_root(number)
         self.history.add_operation('square_root', [number], result)
         return result
     
     def get_history(self, count: int = 10):
-        """Get recent operation history."""
         return self.history.get_last_operations(count)
     
     def clear_history(self):
-        """Clear operation history."""
         self.history.clear_history()
     
     def get_statistics(self):
-        """Get calculation statistics."""
         return self.history.get_statistics()
 
 

@@ -1,7 +1,4 @@
-"""
-Unit tests for History class using pytest.
-Tests follow AAA (Arrange-Act-Assert) pattern and FIRST principles.
-"""
+"""Unit tests for History class using pytest."""
 
 import pytest
 from datetime import datetime, timedelta
@@ -12,43 +9,31 @@ class TestHistory:
     """Test suite for History class."""
     
     def setup_method(self):
-        """Set up test fixtures before each test method (Arrange)."""
         self.history = History()
     
-    # Test 1: Basic history functionality
     def test_add_single_operation(self):
         """Test adding a single operation to history."""
-        # Arrange
-        operation = "add"
-        operands = [5.0, 3.0]
-        result = 8.0
+        self.history.add_operation("add", [5.0, 3.0], 8.0)
         
-        # Act
-        self.history.add_operation(operation, operands, result)
-        
-        # Assert
         assert self.history.get_operation_count() == 1
         operations = self.history.get_all_operations()
         assert len(operations) == 1
-        assert operations[0]['operation'] == operation
-        assert operations[0]['operands'] == operands
-        assert operations[0]['result'] == result
+        assert operations[0]['operation'] == "add"
+        assert operations[0]['operands'] == [5.0, 3.0]
+        assert operations[0]['result'] == 8.0
         assert isinstance(operations[0]['timestamp'], datetime)
     
     def test_add_multiple_operations(self):
         """Test adding multiple operations to history."""
-        # Arrange
         operations_data = [
             ("add", [1.0, 2.0], 3.0),
             ("multiply", [4.0, 5.0], 20.0),
             ("divide", [10.0, 2.0], 5.0)
         ]
         
-        # Act
         for op, operands, result in operations_data:
             self.history.add_operation(op, operands, result)
         
-        # Assert
         assert self.history.get_operation_count() == 3
         all_ops = self.history.get_all_operations()
         assert len(all_ops) == 3
